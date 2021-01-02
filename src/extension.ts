@@ -45,8 +45,8 @@ async function copyType() {
     return;
   }
   let index = -1;
-  if (plainText.includes('function')) {
-    index = plainText.indexOf('(');
+  if (plainText.includes('function') || plainText.includes('method')) {
+    index = plainText.substring(2).indexOf('(') + 2;
   } else {
     index = plainText.indexOf(': ') + 2;
   }
