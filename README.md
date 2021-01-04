@@ -1,5 +1,7 @@
 # Copy Hover Type
 
+| [Download](https://marketplace.visualstudio.com/items?itemName=Young-Vform.copy-hover-type)
+
 Very simple vscode extension for hover information.  
 You can copy type in hover information
 
