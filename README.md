@@ -1,6 +1,6 @@
 # Copy Hover Type
 
-| [Download](https://marketplace.visualstudio.com/items?itemName=Young-Vform.copy-hover-type)
+[Download](https://marketplace.visualstudio.com/items?itemName=Young-Vform.copy-hover-type){:target="\_blank"}
 
 Very simple vscode extension for hover information.  
 You can copy type in hover information
