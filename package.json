@@ -1,13 +1,13 @@
 {
-  "name": "copy-hover",
-  "displayName": "Copy-Hover",
+  "name": "copy-hover-type",
+  "displayName": "Copy Hover Type",
   "description": "copy type in hover information.",
   "publisher": "Young-Vform",
   "repository": {
-    "url": "https://github.com/youngvform/copy-hover"
+    "url": "https://github.com/youngvform/copy-hover-type"
   },
   "icon": "images/copy-hover-type-icon.png",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "engines": {
     "vscode": "^1.52.0"
   },
@@ -25,17 +25,17 @@
       {
         "command": "extension.copyHover",
         "title": "Copy Full Hover Information",
-        "category": "Copy-Hover"
+        "category": "Copy Hover Type"
       },
       {
         "command": "extension.copyHoverType",
         "title": "Copy Type in Hover Information",
-        "category": "Copy-Hover"
+        "category": "Copy Hover Type"
       },
       {
         "command": "extension.copyHoverReturnType",
         "title": "Copy Return Type in Hover Information",
-        "category": "Copy-Hover"
+        "category": "Copy Hover Type"
       }
     ],
     "keybindings": [
