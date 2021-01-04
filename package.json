@@ -6,7 +6,7 @@
   "repository": {
     "url": "https://github.com/youngvform/copy-hover"
   },
-  "icon": "images/icon.png",
+  "icon": "images/copy-hover-type-icon.png",
   "version": "0.0.2",
   "engines": {
     "vscode": "^1.52.0"

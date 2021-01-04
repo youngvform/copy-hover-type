@@ -98,7 +98,7 @@ async function getPlainText() {
   }
 
   const markdown = parts.join('\n');
-  return removeMarkddown(markdown);
+  return removeMarkddown(markdown)?.trim();
 }
 
 function removeMarkddown(markdown: string) {

@@ -1,11 +1,11 @@
-# copy-hover
+# copy hover
 
 Very simple vscode extension for hover information.  
 You can copy type in hover information
 
 ## Usage
 
-![commandKey](./images/commandKey.gif)
+![onclick](./images/onclick.gif)
 
 1. Cursor at a word and type `cmd+k cmd+h(mac)` or `ctrl+k ctrl+h(window or linux))`
 2. Just paste by `cmd+v`
