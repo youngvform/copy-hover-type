@@ -7,7 +7,7 @@ const removeMd = require('remove-markdown');
 export function activate(context: vscode.ExtensionContext) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
-  console.log('Copy-Hover is now active!');
+  console.log('Copy Hover Type is now active!');
 
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
@@ -40,18 +40,25 @@ async function copyHover() {
 
 async function copyType() {
   let plainText: string | undefined = await getPlainText();
-
   if (!plainText) {
     return;
   }
-  let index = -1;
+
+  let index: number;
   if (plainText.includes('function') || plainText.includes('method')) {
-    index = plainText.substring(2).indexOf('(') + 2;
+    const arrowIndex = plainText.indexOf('<');
+    if (arrowIndex === -1) {
+      index = plainText.substring(2).indexOf('(') + 2;
+    } else {
+      const bracketIndex = plainText.substring(2).indexOf('(') + 2;
+      index = arrowIndex < bracketIndex ? arrowIndex : bracketIndex;
+    }
   } else {
     index = plainText.indexOf(': ') + 2;
   }
+  const lastIndex = getLastIndex(plainText);
 
-  plainText = index !== -1 ? plainText.substring(index) : plainText;
+  plainText = plainText.substring(index, lastIndex).trim();
   vscode.env.clipboard.writeText(plainText);
 }
 async function copyReturnType() {
@@ -60,17 +67,14 @@ async function copyReturnType() {
   if (!plainText) {
     return;
   }
-  let index = -1;
-  if (plainText.includes('=> ')) {
-    index = plainText.lastIndexOf('=> ') + 3;
-  } else {
-    index = plainText.lastIndexOf(': ') + 2;
-  }
-  plainText = index !== -1 ? plainText.substring(index) : plainText;
+  const returnIndex = getReturnTypeIndex(plainText);
+  const lastIndex = getLastIndex(plainText);
+
+  plainText = plainText.substring(returnIndex, lastIndex).trim();
   vscode.env.clipboard.writeText(plainText);
 }
 
-async function getPlainText() {
+async function getPlainText(): Promise<string | undefined> {
   const activeEditor = vscode.window.activeTextEditor;
   if (!activeEditor) {
     return;
@@ -97,26 +101,15 @@ async function getPlainText() {
     return;
   }
 
-  const markdown = parts.join('\n');
-  return removeMarkddown(markdown)?.trim();
+  const markdown = parts.join('\n---\n');
+  return removeMarkddown(markdown);
 }
 
 function removeMarkddown(markdown: string) {
-  const delimiter = '```';
-  const targetLanguageLength = 'typescript'.length;
-  const firstIndex =
-    markdown.indexOf(delimiter + 'typescript') !== -1
-      ? markdown.indexOf(delimiter + 'typescript')
-      : markdown.indexOf(delimiter + 'javascript');
-
-  if (firstIndex !== -1) {
-    const lastIndex = markdown.lastIndexOf(delimiter);
-    return markdown.substring(
-      firstIndex + delimiter.length + targetLanguageLength,
-      lastIndex
-    );
+  const targetLanguageRegExp = new RegExp(/```(type|java)script/);
+  if (targetLanguageRegExp.test(markdown)) {
+    return markdown.replace(targetLanguageRegExp, '').replace(/```/, '');
   }
-
   return removeMd(markdown);
 }
 
@@ -130,6 +123,24 @@ function getMarkdownValue(content: vscode.MarkedString): string {
     markdown.appendCodeblock(content.value, content.language);
     return markdown.value;
   }
+}
+
+function getLastIndex(plainText: string) {
+  const returnTypeIndex = getReturnTypeIndex(plainText);
+  const separatedText = plainText.substring(returnTypeIndex);
+  if (separatedText.includes('overload')) {
+    return separatedText.lastIndexOf('(') + returnTypeIndex;
+  } else if (separatedText.includes('import')) {
+    return separatedText.lastIndexOf('import') + returnTypeIndex;
+  }
+  return plainText.length;
+}
+
+function getReturnTypeIndex(plainText) {
+  if (plainText.includes(': ')) {
+    return plainText.lastIndexOf(': ') + 2;
+  }
+  return plainText.lastIndexOf('=> ') + 3;
 }
 
 // this method is called when your extension is deactivated

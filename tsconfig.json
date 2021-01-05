@@ -3,7 +3,7 @@
     "module": "commonjs",
     "target": "es2020",
     "outDir": "out",
-    "lib": ["es6", "ES2020"],
+    "lib": ["es6", "ES2020", "ESNext"],
     "sourceMap": true,
     "rootDir": "src",
     "esModuleInterop": true,
