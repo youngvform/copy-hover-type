@@ -45,7 +45,11 @@ async function copyType() {
   }
 
   let index: number;
-  if (plainText.includes('function') || plainText.includes('method')) {
+  if (
+    plainText.includes('function') ||
+    plainText.includes('method') ||
+    plainText.includes('alias')
+  ) {
     const arrowIndex = plainText.indexOf('<');
     if (arrowIndex === -1) {
       index = plainText.substring(2).indexOf('(') + 2;

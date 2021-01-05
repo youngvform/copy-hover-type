@@ -12,3 +12,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - respond to alias type like hooks
 - refine code
+
+## [0.0.5] - 2020-01-05
+
+### Fix
+
+- bug fix : alias type
