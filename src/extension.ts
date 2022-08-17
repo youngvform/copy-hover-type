@@ -106,10 +106,10 @@ async function getPlainText(): Promise<string | undefined> {
   }
 
   const markdown = parts.join('\n---\n');
-  return removeMarkddown(markdown);
+  return removeMarkdown(markdown);
 }
 
-function removeMarkddown(markdown: string) {
+function removeMarkdown(markdown: string) {
   const targetLanguageRegExp = new RegExp(/```(type|java)script/);
   if (targetLanguageRegExp.test(markdown)) {
     return markdown.replace(targetLanguageRegExp, '').replace(/```/, '');
