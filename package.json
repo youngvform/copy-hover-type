@@ -21,8 +21,7 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
-      {
+    "commands": [{
         "command": "extension.copyHover",
         "title": "Copy Full Hover Information",
         "category": "Copy Hover Type"
@@ -38,14 +37,19 @@
         "category": "Copy Hover Type"
       }
     ],
-    "keybindings": [
-      {
+    "keybindings": [{
+      "command": "extension.copyHoverType",
+      "key": "ctrl+k ctrl+h",
+      "mac": "cmd+k cmd+h",
+      "when": "editorFocus"
+    }],
+    "menus": {
+      "editor/context": [{
+        "when": "resourceLangId == javascript || resourceLangId == javascriptreact || resourceLangId == typescript || resourceLangId == typescriptreact",
         "command": "extension.copyHoverType",
-        "key": "ctrl+k ctrl+h",
-        "mac": "cmd+k cmd+h",
-        "when": "editorFocus"
-      }
-    ]
+        "group": "9_cutcopypaste"
+      }]
+    }
   },
   "scripts": {
     "vscode:prepublish": "yarn run compile",
